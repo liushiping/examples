@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  cn.sxw.commons.data.es.starter.ElasticSearchAutoConfiguration

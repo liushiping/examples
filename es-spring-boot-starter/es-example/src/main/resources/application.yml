@@ -1,0 +1,6 @@
+sxw:
+  elasticsearch:
+    cluster-name: docker-cluster
+    cluster-nodes: 192.168.2.180:9300,192.168.2.181:9300
+    user-name: elastic
+    password: changeme

@@ -56,7 +56,7 @@ Starter是Spring Boot中的一个非常重要的概念，Starter相当于模块�
         </dependencies>
     </project>
 ```
-> 由于本starter主要是与ElasticSearch建立连接，获得TransportClient对象，所以需要依赖x-pack-transport包。
+> 由于本starter主要是与ElasticSearch建立连接，获得TransportClient对象，所以需要依赖`x-pack-transport`包。
 
 2.新建配置类，写好配置项和默认的配置值，指明配置项前缀。
 ```
@@ -83,9 +83,9 @@ public class ElasticSearchProperties {
 
 }
 ```
-> 指定配置项前缀为sxw.elasticsearch，各配置项均有默认值，默认值可以通过模块使用者的配置文件进行覆盖。
+> 指定配置项前缀为`sxw.elasticsearch`，各配置项均有默认值，默认值可以通过模块使用者的配置文件进行覆盖。
 
-3.新建自动装配类，使用@Configuration和@Bean来进行自动装配。
+3.新建自动装配类，使用`@Configuration`和`@Bean`来进行自动装配。
 ```
 package cn.sxw.commons.data.es.starter;
 
@@ -163,7 +163,7 @@ public class ElasticSearchAutoConfiguration implements DisposableBean{
 }
 ```
 > 本类主要对TransportClient类进行自动配置;
-@ConditionalOnMissingBean 当Spring容器中没有TransportClient类的对象时，调用transportClient()创建对象;
+`@ConditionalOnMissingBean` 当Spring容器中没有TransportClient类的对象时，调用`transportClient()`创建对象;
 关于更多Bean的条件装配用法请自行查阅Spring Boot相关文档;
 
 4.新建spring.factories文件，指定Starter的自动装配类。
@@ -172,8 +172,8 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   cn.sxw.commons.data.es.starter.ElasticSearchAutoConfiguration
 ```
 > spring.factories文件位于resources/META-INF目录下，需要手动创建;
-org.springframework.boot.autoconfigure.EnableAutoConfiguration后面的类名说明了自动装配类，如果有多个 ，则用逗号分开;
-使用者应用（SpringBoot）在启动的时候，会通过org.springframework.core.io.support.SpringFactoriesLoader读取classpath下每个Starter的spring.factories文件，加载自动装配类进行Bean的自动装配；
+`org.springframework.boot.autoconfigure.EnableAutoConfiguration`后面的类名说明了自动装配类，如果有多个 ，则用逗号分开;
+使用者应用（SpringBoot）在启动的时候，会通过`org.springframework.core.io.support.SpringFactoriesLoader`读取classpath下每个Starter的spring.factories文件，加载自动装配类进行Bean的自动装配；
 
 至此，整个Starter开发完毕，Deploy到中央仓库或Install到本地仓库后即可使用。
 # 四.Starter的使用
@@ -344,3 +344,6 @@ objc[2017]: Class JavaLaunchHelper is implemented in both /Library/Java/JavaVirt
 Process finished with exit code 0
 ```
 > 运行程序，观察控制台输出，es-starter成功与ElasticSearch建立连接，且应用程序启动完后ExampleRunner的run方法查询出5条数据。
+
+**源代码参考提供：**
+[从零开始开发一个Spring Boot Starter](https://github.com/liushiping/examples/tree/master/es-spring-boot-starter)

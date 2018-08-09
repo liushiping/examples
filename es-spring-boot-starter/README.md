@@ -14,7 +14,7 @@ Starter是Spring Boot中的一个非常重要的概念，Starter相当于模块�
 # 三.Starter的开发示例
 下面，我就以创建一个自动配置并连接ElasticSearch的Starter来讲一下各个步骤及细节。
 1.新建Maven项目，在项目的POM文件中定义使用的依赖。
-```
+```xml
     <?xml version="1.0" encoding="UTF-8"?>
     <project xmlns="http://maven.apache.org/POM/4.0.0"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -59,7 +59,7 @@ Starter是Spring Boot中的一个非常重要的概念，Starter相当于模块�
 > 由于本starter主要是与ElasticSearch建立连接，获得TransportClient对象，所以需要依赖`x-pack-transport`包。
 
 2.新建配置类，写好配置项和默认的配置值，指明配置项前缀。
-```
+```java
 package cn.sxw.commons.data.es.starter;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -86,7 +86,7 @@ public class ElasticSearchProperties {
 > 指定配置项前缀为`sxw.elasticsearch`，各配置项均有默认值，默认值可以通过模块使用者的配置文件进行覆盖。
 
 3.新建自动装配类，使用`@Configuration`和`@Bean`来进行自动装配。
-```
+```java
 package cn.sxw.commons.data.es.starter;
 
 import org.elasticsearch.client.transport.TransportClient;
@@ -167,7 +167,7 @@ public class ElasticSearchAutoConfiguration implements DisposableBean{
 关于更多Bean的条件装配用法请自行查阅Spring Boot相关文档;
 
 4.新建spring.factories文件，指定Starter的自动装配类。
-```
+```java
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   cn.sxw.commons.data.es.starter.ElasticSearchAutoConfiguration
 ```
@@ -178,7 +178,7 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 至此，整个Starter开发完毕，Deploy到中央仓库或Install到本地仓库后即可使用。
 # 四.Starter的使用
 1.创建Maven项目，依赖刚才发布的es-starter包。
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -218,7 +218,7 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 > 只需依赖刚才开发的es-starter即可
 
 2.编写应用程序启动类。
-```
+```java
 package cn.sxw.commons.data.es.example;
 
 import org.springframework.boot.SpringApplication;
@@ -238,7 +238,7 @@ public class ExampleApplication {
 }
 ```
 3.编写查询ElasticSearch的使用类
-```
+```java
 package cn.sxw.commons.data.es.example;
 
 import org.elasticsearch.action.search.SearchResponse;
@@ -288,7 +288,7 @@ public class ExampleRunner implements ApplicationRunner {
 索引名称tb_question是公司测试环境ElasticSearch中的索引，已存在数据。
 
 4.应用程序配置
-```
+```yml
 sxw:
   elasticsearch:
     cluster-name: docker-cluster

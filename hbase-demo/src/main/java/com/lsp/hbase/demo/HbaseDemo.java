@@ -142,8 +142,11 @@ public class HbaseDemo {
 			List<Cell> cells = rs.listCells();
 			if (cells != null) {
 				for (Cell cell : cells) {
-					System.out.println(new String(cell.getFamily()) + " : " + new String(cell.getQualifier()) + " : "
-							+ new String(cell.getValue()));
+					System.out.println("family:" + Bytes.toString(CellUtil.cloneFamily(cell)));
+					System.out.println("qualifier:" + Bytes.toString(CellUtil.cloneQualifier(cell)));
+					System.out.println("value:" + Bytes.toString(CellUtil.cloneValue(cell)));
+					System.out.println("Timestamp:" + cell.getTimestamp());
+					System.out.println("-------------------------------------------");
 				}
 			}
 
